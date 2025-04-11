@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gallito Token - GTO</title>
+    <title>Gallito (GTO) - Preventa</title>
     <script src="https://cdn.jsdelivr.net/npm/web3@1.6.0/dist/web3.min.js"></script>
     <style>
         body {
@@ -15,7 +15,7 @@
         }
 
         h1 {
-            color: #f9a825; /* Título en color amarillo */
+            color: #f9a825;
             font-size: 36px;
             margin-bottom: 20px;
         }
@@ -26,7 +26,7 @@
         }
 
         button {
-            background-color: #f9a825; /* Color amarillo para los botones */
+            background-color: #f9a825;
             color: white;
             padding: 15px 30px;
             font-size: 18px;
@@ -38,20 +38,20 @@
         }
 
         button:hover {
-            background-color: #f57f17; /* Un tono más oscuro cuando pasa el mouse */
+            background-color: #f57f17;
         }
 
         #status {
             margin-top: 20px;
             font-size: 18px;
-            color: #4caf50; /* Color verde para el estado de la billetera */
+            color: #4caf50;
         }
     </style>
 </head>
 <body>
 
-    <h1>Gallito Token (GTO) - Preventa</h1>
-    <p>¡Bienvenido a la preventa de Gallito Token! ¡Compra GTO ahora y gana recompensas!</p>
+    <h1>Gallito (GTO) - Preventa</h1>
+    <p>¡Bienvenido a la preventa de Gallito! ¡Compra GTO ahora y gana recompensas exclusivas!</p>
 
     <button onclick="connectWallet()">Conectar billetera</button>
     <br><br>
@@ -65,7 +65,6 @@
         let web3;
         let userAccount;
 
-        // Conectar la billetera
         async function connectWallet() {
             if (window.ethereum) {
                 web3 = new Web3(window.ethereum);
@@ -83,14 +82,13 @@
             }
         }
 
-        // Comprar tokens
         async function buyTokens() {
             if (userAccount) {
-                const tokenAddress = "0x659a0f0D27378c9f25B97B0fE0F0df6fD1a6D3d4"; // Dirección del contrato
-                const tokenABI = [{"constant":true,"inputs":[],"name":"totalSupply","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"}]; // ABI básico (actualiza esto con el ABI completo)
+                const tokenAddress = "0x659a0f0D27378c9f25B97B0fE0F0df6fD1a6D3d4";
+                const tokenABI = [{"constant":true,"inputs":[],"name":"totalSupply","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"}];
 
                 const tokenContract = new web3.eth.Contract(tokenABI, tokenAddress);
-                const amountToBuy = web3.utils.toWei('1', 'ether'); // Cambia por la cantidad que el usuario quiere comprar
+                const amountToBuy = web3.utils.toWei('1', 'ether');
 
                 try {
                     await web3.eth.sendTransaction({
