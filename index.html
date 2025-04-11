@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallito Token - GTO</title>
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.6.0/dist/web3.min.js"></script>
+</head>
+<body style="font-family: Arial, sans-serif; background-color: #f4f4f9; text-align: center; padding: 50px;">
+
+    <h1>Gallito Token (GTO) - Preventa</h1>
+    <p>¡Bienvenido a la preventa de Gallito Token! ¡Compra GTO ahora y gana recompensas!</p>
+
+    <button onclick="connectWallet()">Conectar billetera</button>
+    <br><br>
+
+    <button onclick="buyTokens()">Comprar GTO</button>
+    <br><br>
+
+    <p id="status"></p>
+
+    <script>
+        let web3;
+        let userAccount;
+
+        // Conectar la billetera
+        async function connectWallet() {
+            if (window.ethereum) {
+                web3 = new Web3(window.ethereum);
+                try {
+                    await window.ethereum.request({ method: 'eth_requestAccounts' });
+                    const accounts = await web3.eth.getAccounts();
+                    userAccount = accounts[0];
+                    document.getElementById("status").innerHTML = "Billetera conectada: " + userAccount;
+                } catch (error) {
+                    console.error(error);
+                    alert("¡Error! No se pudo conectar la billetera.");
+                }
+            } else {
+                alert("¡Instala MetaMask!");
+            }
+        }
+
+        // Comprar tokens
+        async function buyTokens() {
+            if (userAccount) {
+                const tokenAddress = "0x659a0f0D27378c9f25B97B0fE0F0df6fD1a6D3d4"; // Dirección del contrato
+                const tokenABI = [{"constant":true,"inputs":[],"name":"totalSupply","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"}]; // ABI básico (actualiza esto con el ABI completo)
+
+                const tokenContract = new web3.eth.Contract(tokenABI, tokenAddress);
+                const amountToBuy = web3.utils.toWei('1', 'ether'); // Cambia por la cantidad que el usuario quiere comprar
+
+                try {
+                    await web3.eth.sendTransaction({
+                        from: userAccount,
+                        to: tokenAddress,
+                        value: amountToBuy
+                    });
+
+                    alert("¡Compra exitosa de GTO!");
+                } catch (error) {
+                    console.error(error);
+                    alert("¡Error en la compra!");
+                }
+            } else {
+                alert("¡Conecta tu billetera primero!");
+            }
+        }
+    </script>
+
+</body>
+</html>
